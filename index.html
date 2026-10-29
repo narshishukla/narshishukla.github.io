@@ -202,8 +202,9 @@ var blocks=D.clients.map(function(c){return {c:c,node:block(c)}});
 var list=el('div',{class:'list'}),tabs=el('div',{class:'tabs',role:'tablist','aria-label':'Order work by'});
 var h=(location.hash||'').slice(1),active=D.tabs.some(function(t){return t[0]===h})?h:'political';
 function order(key){
-  var first=blocks.filter(function(b){return b.c.tags===key}),rest=blocks.filter(function(b){return b.c.tags!==key});
-  first.concat(rest).forEach(function(b){list.appendChild(b.node)});
+  /* clients with reels first (this tab's clients leading), then clients without reels */
+  var rank=function(b){return (b.c.reels.length?0:2)+(b.c.tags===key?0:1)};
+  blocks.map(function(b,i){return [rank(b),i,b]}).sort(function(x,y){return x[0]-y[0]||x[1]-y[1]}).forEach(function(x){list.appendChild(x[2].node)});
   [].forEach.call(tabs.children,function(t){t.setAttribute('aria-selected',String(t.dataset.k===key))});
 }
 D.tabs.forEach(function(t){var b=el('button',{type:'button',role:'tab','data-k':t[0],text:t[1]});b.onclick=function(){if(b.getAttribute('aria-selected')==='true')return;if(cur){reset(cur);cur=null}list.classList.add('fade');setTimeout(function(){order(t[0]);list.classList.remove('fade');try{history.replaceState(null,'','#'+t[0])}catch(e){}},180)};tabs.appendChild(b)});
