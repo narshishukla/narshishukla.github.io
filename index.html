@@ -170,6 +170,13 @@ a.cap:before{content:"↗ ";color:var(--red);font-weight:700}
   .list>.cl:not(.open) .peek .pk b{font-size:20px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* headings: never more than two lines (name + details, then role) */
+.list>.cl:not(.open)>.clh,.list>.cl.s2:not(.open)>.clh,.list>.cl:not(.open)>.my,.list>.cl.s2:not(.open)>.my{flex-wrap:nowrap;white-space:nowrap;min-width:0;align-items:baseline}
+.list>.cl:not(.open) .clh h3{min-width:0;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis}
+.list>.cl:not(.open) .lang,.list>.cl:not(.open) .myk{flex:none}
+.list>.cl:not(.open) .meta{flex:1 1 0;min-width:0;width:auto;overflow:hidden;text-overflow:ellipsis}
+.list>.cl:not(.open)>.my>span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:640px){.list>.cl:not(.s2):not(.open) .myk{display:none}}
 </style>
 </head>
 <body>
