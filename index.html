@@ -196,7 +196,7 @@ function block(c){
   b.style.viewTransitionName='cl'+(++CLN);
   if(c.reels.length){var SHOW=2,cards=c.reels.map(card),row=el('div',{class:'row'},cards.slice(0,SHOW)),extra=cards.length-SHOW;
     if(extra>0){var mb=el('button',{type:'button',class:'more','aria-expanded':'false'}),open=false;
-      var label=function(){mb.textContent='';mb.appendChild(el('b',{text:open?'−':'+'+extra}));mb.appendChild(el('span',{text:open?'show less':'more reels'}));mb.setAttribute('aria-expanded',String(open));mb.setAttribute('aria-label',(open?'Show fewer':'Show '+extra+' more')+' reels from '+c.n)};
+      var label=function(){mb.textContent='';mb.appendChild(el('b',{text:open?'−':'+'}));mb.appendChild(el('span',{text:open?'show less':'more reels'}));mb.setAttribute('aria-expanded',String(open));mb.setAttribute('aria-label',(open?'Show fewer':'Show more')+' reels from '+c.n)};
       mb.onclick=function(){var go=function(){open=!open;if(open)cards.slice(SHOW).forEach(function(k){row.insertBefore(k,mb)});else{cards.slice(SHOW).forEach(function(k){if(cur&&cur===k){reset(cur);cur=null}k.remove()});row.scrollLeft=0}
           b.classList.toggle('open',open);label()};
         if(document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.startViewTransition(go);else go();
